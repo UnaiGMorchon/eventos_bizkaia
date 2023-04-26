@@ -38,37 +38,51 @@
   ul {
     list-style: none;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
   }
-  
-.icons {
-  height: 23%;
-  display: inline;
-}
 
-
-  li {
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+  .imagecard {
+    position: relative; /* establecemos una posición relativa para el elemento padre */
   }
   
+  .imagecard:hover::before {
+    content: ""; /* agregamos un contenido vacío para el pseudo-selector */
+    position: absolute; /* establecemos una posición absoluta para el pseudo-selector */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* establecemos un color de fondo semitransparente */
+    transform: scale(1.2); /* aplicamos una escala para hacer que el pseudo-selector sea más grande */
+    transition: transform 0.3s ease-in-out; /* establecemos una transición suave para el efecto */
+  }
+  
+  .imagecard:hover {
+    z-index: 1; /* movemos el elemento hacia delante para que se vea encima del pseudo-selector */
+  }
+ 
+  /* opcional: agrega estilos para el contenido dentro del elemento */
+  .imagecard h3, .imagecard p {
+    position: relative;
+    z-index: 2; /* aseguramos que el contenido siempre esté encima del pseudo-selector */
+  }
+  
+
   h3 {
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 10px;
     text-align: center;
   }
   
   p {
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 10px;
   }
   
-  img {
+  img.shadow {
     display: block;
     margin: 0 auto;
     max-width: 100%;
@@ -76,4 +90,62 @@
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
-  
+
+.noimage{
+  max-width: 100%;
+  height: 60%;
+  }
+
+ul.eventbutton {
+  list-style: none;
+  margin: 20px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 20px;
+}
+
+li {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-height: 100px;
+}
+
+.icons {
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(245, 245, 245, 1) 100%);
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(72, 72, 72, 0.5) 100%);
+}
+
+.place {
+  font-weight: bold;
+}

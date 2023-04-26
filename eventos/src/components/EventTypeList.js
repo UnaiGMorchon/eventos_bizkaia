@@ -14,12 +14,12 @@ const EventTypeList = () =>{
 
         return (
             <div>
-                <h2>Tipos de eventos</h2>
-                <ul>
+                <h4>Tipos de eventos</h4>
+                <ul class="eventbutton">
                     {eventTypes.map (eventType => ( // montramos datos de id de name es dos idiomas en una lista 
-                        <li key={eventType.id}>
+                        <li key={eventType.id} class="btn">
                             <img class="icons" src={`/img/${eventType.nameEs.toLowerCase()}.png`} alt={eventType.nameEs} />
-                            {eventType.nameEs} / {eventType.nameEu} {/* creamos un elememto de lista*/}
+                            {eventType.nameEs} {/* / {eventType.nameEu}  creamos un elememto de lista*/}
                         </li>
                     ))}
                 </ul>
