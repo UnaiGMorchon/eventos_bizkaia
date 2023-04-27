@@ -45,31 +45,28 @@
   }
 
   .imagecard {
-    position: relative; /* establecemos una posición relativa para el elemento padre */
-  }
+    position: relative; }
   
   .imagecard:hover::before {
-    content: ""; /* agregamos un contenido vacío para el pseudo-selector */
-    position: absolute; /* establecemos una posición absoluta para el pseudo-selector */
+    content: ""; 
+    position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* establecemos un color de fondo semitransparente */
-    transform: scale(1.2); /* aplicamos una escala para hacer que el pseudo-selector sea más grande */
-    transition: transform 0.3s ease-in-out; /* establecemos una transición suave para el efecto */
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: scale(1.2); 
+    transition: transform 0.3s ease-in-out; 
   }
   
   .imagecard:hover {
-    z-index: 1; /* movemos el elemento hacia delante para que se vea encima del pseudo-selector */
-  }
- 
-  /* opcional: agrega estilos para el contenido dentro del elemento */
-  .imagecard h3, .imagecard p {
-    position: relative;
-    z-index: 2; /* aseguramos que el contenido siempre esté encima del pseudo-selector */
+    z-index: 1; 
   }
   
+.imagecard h3, .imagecard p {
+    position: relative;
+    z-index: 2; 
+  }
 
   h3 {
     font-size: 20px;
@@ -154,3 +151,4 @@ li {
 .selected {
   background-color: red;
 }
+

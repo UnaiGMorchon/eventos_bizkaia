@@ -1,11 +1,13 @@
 import { useState,useEffect } from "react";
 import '../css/EventList.css';
+import EventModal from "./EventModal";
 
 
 const EventList = ({eventType}) => {
     const [events, setEvents] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     useEffect (() => {
         setPage(1);
@@ -35,11 +37,6 @@ const previousPage = () => {
 
 }
 
-
-
-
-
-
     return (
         <section className="event-list">
             <h2>Eventos</h2>
@@ -48,7 +45,7 @@ const previousPage = () => {
             {page < totalPages && <button onClick={nextPage}>Siguiente</button>}
             <ul>
                 {events.map( event =>( // montramos datos de id de name es dos idiomas en una lista 
-                        <li className="imagecard" key={event.id}>
+                        <li className="imagecard" key={event.id} onClick={()=>setSelectedEvent(event.id)}>
                             {event.images.length > 0 ?
                             <img className="shadow" src={event.images[0].imageUrl} alt={event.images[0].imageFileName}/>
                             : <img className="noimage" src="./img/imgen default no image.jpeg" alt="imagen no disponible" />}
@@ -56,6 +53,7 @@ const previousPage = () => {
                             <p className="place" >{event.establishmentEs} - {event.municipalityEu}</p>
                             <p>{event.startDate.split("T")[0]}, {event.openingHoursEs}</p>
                             <p>{event.priceEs}</p>
+                            <EventModal event={event} className={selectedEvent === event.id ? "show" : ""} close={()=>setSelectedEvent(null)}/>
                         </li>
                 ))}
             </ul>
