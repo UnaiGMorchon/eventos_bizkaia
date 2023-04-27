@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react";
 
 
-const EventTypeList = () =>{
+const EventTypeList = ({handleClick, selectedType}) =>{
     const[eventTypes, setEventTypes] = useState([]); // el array vacio es el valor por defecto del eventTypes
 
         useEffect( () => { // esta funcion se llama cuando hay un cambio del estado  y solo se ejecuta una vez al principio
@@ -15,10 +15,11 @@ const EventTypeList = () =>{
         return (
             <div>
                 <h4>Tipos de eventos</h4>
-                <ul class="eventbutton">
+                <ul className="eventbutton">
+                        <li className={selectedType=== 0 ? "selected btn" : "btn"} onClick={()=> handleClick(0)}>Todos</li>
                     {eventTypes.map (eventType => ( // montramos datos de id de name es dos idiomas en una lista 
-                        <li key={eventType.id} class="btn">
-                            <img class="icons" src={`/img/${eventType.nameEs.toLowerCase()}.png`} alt={eventType.nameEs} />
+                        <li className={selectedType=== eventType.id ? "selected btn" : "btn"} key={eventType.id} onClick={()=> handleClick(eventType.id)}>
+                            <img className="icons" src={`/img/${eventType.nameEs.toLowerCase()}.png`} alt={eventType.nameEs} />
                             {eventType.nameEs} {/* / {eventType.nameEu}  creamos un elememto de lista*/}
                         </li>
                     ))}

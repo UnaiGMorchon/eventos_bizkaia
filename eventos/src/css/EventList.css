@@ -149,3 +149,8 @@ li {
 .place {
   font-weight: bold;
 }
+
+
+.selected {
+  background-color: red;
+}
