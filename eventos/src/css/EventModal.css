@@ -15,7 +15,7 @@
 
 }
 
-.modal.show .modal-background{
+.modal.show, .modal-background.show{
 display: block;
 
 }

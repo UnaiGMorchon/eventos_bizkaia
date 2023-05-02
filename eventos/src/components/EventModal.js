@@ -8,15 +8,17 @@ useEffect (() => {
     setCurrentClassname(className);
 },[className]);
 
-const closeModal = () =>{
+const closeModal = (event) =>{
+    event.stopPropagation(); // stop propagation 
     setCurrentClassname(null);
     close();
 }
 
     return (
         <div>
-            <section className={"modal-background" + currentClassname} onClick={(closeModal)}> </section>
+            <section className={"modal-background " + currentClassname} onClick={(closeModal)}> </section>
             <article className={"modal " + currentClassname}>
+                
                 <h1>{event.nameEs}</h1>
                 <section className="horizontal"> 
                     <article className="horizontal-container">
