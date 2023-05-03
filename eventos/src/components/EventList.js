@@ -1,16 +1,18 @@
-import { useState,useEffect,useRef } from "react";
+import { useState,useEffect, useRef, useContext } from "react";
 import '../css/EventList.css';
 import EventModal from "./EventModal";
+import { LanguageContext } from "../App";
 
 
 
-const EventList = ({eventType}) => {
+const EventList = ({eventType,refTo}) => {
     const [events, setEvents] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [searchWord, setSearchWord] = useState("");
-    const titleRef = useRef(null);
+    const language =useContext(LanguageContext);
+
 
     useEffect (() => {
         setEvents([]);
@@ -28,7 +30,7 @@ const EventList = ({eventType}) => {
             setEvents([...events,...data.items]); // los ""..."" es para q salgan los arrays seguidos sino los sustituirias
             setTotalPages(data.totalPages);
         });
-    },[page]);
+    },[page]); // de que depende el array y es cuando cambia cuando es page.
 
 
     useEffect (() => {
@@ -87,15 +89,35 @@ const nextPage = () => {
 
 
 const goToTop = () =>{
-    titleRef.current.scrollIntoView({behavior: 'smooth'});
-    console.log(titleRef.current.textContent);
+    refTo.current.scrollIntoView({behavior: 'smooth'});
+    console.log(refTo.current.textContent);
+}
+
+
+const showMore ={
+    "eu" : "Gehiago ikusi",
+    "es" : "Ver más"
+
+}
+
+
+const goUp ={
+    "eu" : "gora joan",
+    "es" : "ir arriba"
+
+}
+
+const eventTitle ={
+    "eu" : "Ekitaldiak",
+    "es" : "eventos"
+
 }
 
 
 
     return (
         <section className="event-list">
-            <h2 ref={titleRef}>Eventos</h2>
+            <h2 ref={refTo}>{eventTitle[language]}</h2>
                 <input type="text" value={searchWord} onChange={(e)=>setSearchWord(e.target.value)}/>
             <h3>página {page}/{totalPages}</h3>
 
@@ -103,21 +125,52 @@ const goToTop = () =>{
             {page < totalPages && <button onClick={nextPage}>Siguiente</button>} */}
         
             <ul>
-                {events.map( event =>( // montramos datos de id de name es dos idiomas en una lista 
-                        <li className="imagecard" key={event.id} onClick={()=>setSelectedEvent(event.id)}>
+                {events.map( event =>{      // montramos datos de id de name es dos idiomas en una lista 
+                           const translation ={
+                                name:{
+                                    eu: event.nameEu,
+                                    es: event.nameEs
+                                },
+                                description: {
+                                    eu: event.descriptionEu,
+                                    es: event.descriptionEs
+                                },
+                                    
+                                municipality:{
+                                    eu : event.municipalityEu,
+                                    es : event.municipalityEs
+                                },
+                                
+                                openingHours : {
+                                    eu : event.openingHoursEu,
+                                    es : event.openingHoursEs
+                                },
+                                price: {
+                                    eu: event.priceEu,
+                                    es: event.priceEs
+                                },
+
+                                establishment:{
+                                    eu: event.establishmentEu,
+                                    es: event.establishmentEs
+
+                                }
+                           };
+                    
+                       return <li className="imagecard" key={event.id} onClick={()=>setSelectedEvent(event.id)}>
                             {event.images.length > 0 ?
                             <img className="shadow" src={event.images[0].imageUrl} alt={event.images[0].imageFileName}/>
                             : <img className="noimage" src="./img/imgen default no image.jpeg" alt="imagen no disponible" />}
-                            <h3>{event.nameEs} {event.nameEu}</h3>
-                            <p className="place" >{event.establishmentEs} - {event.municipalityEu}</p>
-                            <p>{event.startDate.split("T")[0]}, {event.openingHoursEs}</p>
-                            <p>{event.priceEs}</p>
+                            <h3>{translation.name[language]}</h3>
+                            <p className="place" >{translation.establishment[language]} - {translation.municipality[language]}</p>
+                            <p>{event.startDate.split("T")[0]}, {translation.openingHours[language]}</p>
+                            <p>{translation.price[language]}</p>
                             <EventModal event={event} className={selectedEvent === event.id ? "show" : ""} close={()=>setSelectedEvent(null)}/>
                         </li>
-                ))}
+                })}
             </ul>
-            {page < totalPages &&<button onClick={nextPage}>Mostrar más</button>} 
-            <button onClick={goToTop}>Ir arriba</button>
+            {page < totalPages &&<button onClick={nextPage}>{showMore[language]}</button>} 
+            <button onClick={goToTop}>{goUp[language]}</button>
         </section>
     )
 }
