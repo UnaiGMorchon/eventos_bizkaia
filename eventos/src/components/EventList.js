@@ -108,7 +108,7 @@ const goToTop = () =>{
                             {event.images.length > 0 ?
                             <img className="shadow" src={event.images[0].imageUrl} alt={event.images[0].imageFileName}/>
                             : <img className="noimage" src="./img/imgen default no image.jpeg" alt="imagen no disponible" />}
-                            <h3>{event.nameEs} {/* / {event.nameEu} */}</h3>
+                            <h3>{event.nameEs} {event.nameEu}</h3>
                             <p className="place" >{event.establishmentEs} - {event.municipalityEu}</p>
                             <p>{event.startDate.split("T")[0]}, {event.openingHoursEs}</p>
                             <p>{event.priceEs}</p>
